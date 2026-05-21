@@ -2,13 +2,16 @@ import os
 import logging
 from datetime import datetime
 
-import httpx
+import requests
+
 from telegram import (
     Update,
     InlineKeyboardButton,
     InlineKeyboardMarkup,
 )
+
 from telegram.constants import ParseMode
+
 from telegram.ext import (
     ApplicationBuilder,
     CommandHandler,
@@ -57,17 +60,16 @@ async def fetch_coins(limit=1000, start=1):
         "Accept": "application/json",
     }
 
-    async with httpx.AsyncClient(timeout=30) as client:
+    response = requests.get(
+        CMC_URL,
+        params=params,
+        headers=headers,
+        timeout=30
+    )
 
-        response = await client.get(
-            CMC_URL,
-            params=params,
-            headers=headers
-        )
+    response.raise_for_status()
 
-        response.raise_for_status()
-
-        return response.json()["data"]
+    return response.json()["data"]
 
 # ─────────────────────────────────────────────
 # ANALYSIS
@@ -160,19 +162,6 @@ def rsi_label(r):
 
     return "محايد ⚪"
 
-def vol_label(v):
-
-    if v > 3:
-        return "🚀 ضخم جداً"
-
-    if v > 2:
-        return "🔥 مرتفع"
-
-    if v > 1.5:
-        return "📈 جيد"
-
-    return "⚪ طبيعي"
-
 def coin_card(c):
 
     return (
@@ -205,7 +194,6 @@ async def send_startup_message(app):
                 "🔍 /scan\n"
                 "📉 /oversold\n"
                 "🔥 /volume\n"
-                "🔎 /find BTC\n\n"
                 "⚡ جاهز لتحليل العملات"
             ),
             parse_mode=ParseMode.MARKDOWN
