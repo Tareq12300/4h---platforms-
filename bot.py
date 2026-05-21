@@ -37,7 +37,6 @@ logger = logging.getLogger(__name__)
 CMC_KEY = os.environ["CMC_API_KEY"]
 BOT_TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
 
-# ضع يوزر القناة أو ID القناة
 CHANNEL_ID = os.getenv("TELEGRAM_CHANNEL_ID")
 
 CMC_URL = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest"
@@ -187,16 +186,7 @@ async def send_startup_message(app):
 
         await app.bot.send_message(
             chat_id=CHANNEL_ID,
-            text=(
-                "🚀 *تم تشغيل بوت كريبتو سكانر بنجاح*\n\n"
-                "✅ البوت متصل الآن ويعمل\n\n"
-                "📌 الأوامر:\n"
-                "🔍 /scan\n"
-                "📉 /oversold\n"
-                "🔥 /volume\n"
-                "⚡ جاهز لتحليل العملات"
-            ),
-            parse_mode=ParseMode.MARKDOWN
+            text="🚀 البوت شغّال"
         )
 
 # ─────────────────────────────────────────────
