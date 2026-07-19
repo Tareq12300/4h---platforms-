@@ -1,0 +1,15 @@
+1) ارفع الملفات إلى Railway.
+2) انسخ متغيرات .env.example إلى Variables.
+3) ضع TELEGRAM_BOT_TOKEN وTELEGRAM_CHANNEL_ID وCOINGECKO_API_KEY.
+4) أمر التشغيل: python bot.py
+
+الإعداد الموصى به للطريقة الهجينة:
+VOLUME_COMPARISON_MODE=average
+VOLUME_AVERAGE_CANDLES=10
+COMPARE_WITH_PREVIOUS_CANDLE=true
+REQUIRE_STOCH_CROSS=true
+REQUIRE_STOCH_RISING=true
+REQUIRE_MACD_POSITIVE=true
+REQUIRE_MACD_HISTOGRAM_RISING=true
+REQUIRE_MACD_SWITCH_TO_POSITIVE=false
+REQUIRE_PRICE_RISING=true
